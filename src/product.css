@@ -1,0 +1,57 @@
+.navbar{
+  position: fixed;
+  width:100% ;
+  z-index: 999;
+  top: 0;
+}
+
+.fullproduct {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 80px; /* Offset for the fixed navbar */
+}
+.banner{
+  width: 100vw;
+}
+
+.product-card {
+  width: 300px;
+  border: 1px solid #ddd;
+  display: grid;
+  gap: 2px;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 8px;
+}
+
+.product-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.product-button {
+  padding: 10px 20px;
+  background-color: orange;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.footer {
+  margin-top: 80px;
+}

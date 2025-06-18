@@ -1,0 +1,147 @@
+.cart-container {
+  padding: 20px;
+  width: 100%;
+  max-width: 340px;
+  color: white;
+  overflow-y: auto;
+  max-height: 90vh;
+  margin: 0 auto; /* Center on desktop */
+  background-color: #282c34; /* optional dark background */
+  border-radius: 10px;
+}
+
+/* Cart Header */
+.cart-container h4 {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-item {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.cart-details {
+  flex: 1;
+  min-width: 140px;
+}
+
+.cart-details h6 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.cart-details p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.cart-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+
+.quantity-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+
+.card-button {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.buy-btn {
+  background-color: green;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.buy-btn:hover {
+  background-color: darkgreen;
+}
+
+.remove-btn {
+  background-color: red;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.remove-btn:hover {
+  background-color: darkred;
+}
+
+.cart-summary {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 18px;
+  color: white;
+}
+
+/* Responsive layout for small devices */
+@media (max-width: 480px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-buttons {
+    justify-content: flex-start;
+  }
+
+  .card-button {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  .cart-summary {
+    text-align: center;
+  }
+}
