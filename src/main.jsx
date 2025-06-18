@@ -7,7 +7,7 @@ import './signup.css'; // Or central CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
+  <BrowserRouter  basename="/ecommerce_website_react">
     <App />
   </BrowserRouter>
 );
