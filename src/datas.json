@@ -12,38 +12,8 @@
       "name": "pavi",
       "email": "pavi@gmail.com",
       "password": "pavi",
-      "cart": [
-        {
-          "id": "31",
-          "name": "Mi Q1 55-inch QLED TV",
-          "price": 58999,
-          "image": "./assets/imgs/tv/7.jpeg",
-          "brand": "Mi",
-          "category": "tv",
-          "quantity": 1
-        },
-        {
-          "id": "19",
-          "name": "Moto Edge 40",
-          "price": 28999,
-          "brand": "Motorola",
-          "image": "./assets/imgs/product/14.jpeg",
-          "rating": 4.5,
-          "category": "mobile",
-          "quantity": 2
-        },
-        {
-          "id": "81",
-          "name": "Baby Diapers (Pack of 40)",
-          "price": 899,
-          "image": "./assets/imgs/kids/1.jpeg",
-          "brand": "Pampers",
-          "category": "baby",
-          "special": "30%",
-          "quantity": 1
-        }
-      ],
-      "address": "test",
+      "cart": [],
+      "address": "test11",
       "order_history": [
         {
           "paymentMethod": "COD",
@@ -59,12 +29,115 @@
               "image": "./assets/imgs/product/19.jpeg"
             }
           ]
+        },
+        {
+          "paymentMethod": "COD",
+          "total": "58999.00",
+          "address": "test2",
+          "date": "2025-06-18T04:19:31.611Z",
+          "items": [
+            {
+              "id": "31",
+              "name": "Mi Q1 55-inch QLED TV",
+              "price": 58999,
+              "quantity": 1,
+              "image": "./assets/imgs/tv/7.jpeg"
+            }
+          ]
+        },
+        {
+          "paymentMethod": "COD",
+          "total": "16999.00",
+          "address": "test3",
+          "date": "2025-06-18T04:20:02.949Z",
+          "items": [
+            {
+              "id": "4",
+              "name": "Realme Narzo 60",
+              "price": 16999,
+              "quantity": 1,
+              "image": "./assets/imgs/product/4.jpeg"
+            }
+          ]
+        },
+        {
+          "paymentMethod": "COD",
+          "total": "39999.00",
+          "address": "test3",
+          "date": "2025-06-18T04:31:17.529Z",
+          "items": [
+            {
+              "id": "3",
+              "name": "OnePlus 11R",
+              "price": 39999,
+              "quantity": 1,
+              "image": "./assets/imgs/product/3.jpeg"
+            }
+          ]
+        },
+        {
+          "paymentMethod": "COD",
+          "total": "72999.00",
+          "address": "test4",
+          "date": "2025-06-18T04:32:53.210Z",
+          "items": [
+            {
+              "id": "2",
+              "name": "iPhone 14",
+              "price": 72999,
+              "quantity": 1,
+              "image": "./assets/imgs/product/2.jpeg"
+            }
+          ]
+        },
+        {
+          "paymentMethod": "COD",
+          "total": "72999.00",
+          "address": "test4",
+          "date": "2025-06-24T12:37:32.425Z",
+          "items": [
+            {
+              "id": "2",
+              "name": "iPhone 14",
+              "price": 72999,
+              "quantity": 1,
+              "image": "./assets/imgs/product/2.jpeg"
+            }
+          ]
+        },
+        {
+          "paymentMethod": "COD",
+          "total": "39999.00",
+          "address": "test6",
+          "date": "2025-06-24T12:48:36.489Z",
+          "items": [
+            {
+              "id": "3",
+              "name": "OnePlus 11R",
+              "price": 39999,
+              "quantity": 1,
+              "image": "./assets/imgs/product/3.jpeg"
+            }
+          ]
+        },
+        {
+          "paymentMethod": "COD",
+          "total": "72999.00",
+          "address": "test11",
+          "date": "2025-06-24T12:56:58.019Z",
+          "items": [
+            {
+              "id": "2",
+              "name": "iPhone 14",
+              "price": 72999,
+              "quantity": 1,
+              "image": "./assets/imgs/product/2.jpeg"
+            }
+          ]
         }
       ]
     }
   ],
-
-  
   "Products": [
     {
       "id": "1",

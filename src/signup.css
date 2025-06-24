@@ -99,7 +99,11 @@ body {
 .login_acc a:hover {
   color: #e63939;
 }
-
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
 @media (max-width: 600px) {
   .login {
     padding: 30px 20px;

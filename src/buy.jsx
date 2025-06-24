@@ -9,9 +9,11 @@ function BuyPage() {
   const [selectedPayment, setSelectedPayment] = useState('COD');
   const [billingAddressOption, setBillingAddressOption] = useState('same');
   const [address, setAddress] = useState('');
+  const [addressError, setAddressError] = useState('');
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
-const userName1=localStorage.getItem('userName')
+  const userName1 = localStorage.getItem('userName');
+
   useEffect(() => {
     const email = localStorage.getItem('email');
     const mode = localStorage.getItem("buyMode");
@@ -43,21 +45,25 @@ const userName1=localStorage.getItem('userName')
   }, []);
 
   const handlePlaceOrder = async () => {
+    if (!address || address.trim().length < 15) {
+      setAddressError("Please enter a valid address (minimum 15 characters)");
+      return;
+    } else {
+      setAddressError("");
+    }
+
     const mode = localStorage.getItem("buyMode");
 
     try {
       let updatedCart = user.cart || [];
 
-      // If it's a single buy, remove only that item from cart
       if (mode === "single") {
         const singleItem = JSON.parse(localStorage.getItem("singleBuyItem"));
         updatedCart = updatedCart.filter(item => item.id !== singleItem.id);
       } else {
-        // Buy all: clear entire cart
         updatedCart = [];
       }
 
-      // Create a new order object
       const newOrder = {
         paymentMethod: selectedPayment.toUpperCase(),
         total: total.toFixed(2),
@@ -72,10 +78,8 @@ const userName1=localStorage.getItem('userName')
         }))
       };
 
-      // Update order history
       const updatedHistory = [...(user.order_history || []), newOrder];
 
-      // Send PATCH request to update user data
       await axios.patch(`http://localhost:3000/datas/${user.id}`, {
         address: address,
         cart: updatedCart,
@@ -84,7 +88,6 @@ const userName1=localStorage.getItem('userName')
 
       alert(`🎉 Order placed successfully via ${selectedPayment.toUpperCase()}!\nTotal: ₹${total.toFixed(2)}, Address: ${address}`);
 
-      // Clear local state and storage
       setCartItems([]);
       setTotal(0);
       localStorage.removeItem("buyMode");
@@ -99,7 +102,6 @@ const userName1=localStorage.getItem('userName')
 
   return (
     <div className="buy-container">
-      
       <div className="buy-left">
         <h3>Account</h3>
         <p>{user.email}</p>
@@ -111,8 +113,16 @@ const userName1=localStorage.getItem('userName')
           placeholder="Enter shipping address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          style={{ width: '100%', padding: '10px', marginTop: '10px' }}
+          style={{
+            width: '100%',
+            padding: '10px',
+            marginTop: '10px',
+            border: addressError ? '1px solid red' : '1px solid #ccc'
+          }}
         />
+        {addressError && (
+          <p style={{ color: 'red', marginTop: '5px' }}>{addressError}</p>
+        )}
 
         <h3>Shipping Method</h3>
         <p>Standard Shipping — <strong>FREE</strong></p>
@@ -128,6 +138,7 @@ const userName1=localStorage.getItem('userName')
           />
           Razorpay Secure (UPI, Cards, Wallets)
         </label>
+        <br />
         <label>
           <input
             type="radio"
@@ -150,6 +161,7 @@ const userName1=localStorage.getItem('userName')
           />
           Same as shipping address
         </label>
+        <br />
         <label>
           <input
             type="radio"
@@ -179,7 +191,6 @@ const userName1=localStorage.getItem('userName')
           ))}
         </ul>
         <hr />
-        
         <p>Shipping: FREE</p>
         <h4>Total: ₹{total.toFixed(2)}</h4>
       </div>

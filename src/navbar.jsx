@@ -5,13 +5,16 @@ import Sidebar from './sidenavbar';
 import Cart from './card';
 import { CgProfile } from "react-icons/cg";
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCartCount } from './cartslice'; // ✅ Updated path
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [cartCount, setCartCount] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const cartCount = useSelector((state) => state.cart.cartCount);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userEmail = localStorage.getItem("email");
@@ -21,10 +24,10 @@ function Navbar() {
     axios.get('http://localhost:3000/datas')
       .then(res => {
         const user = res.data.find(u => u.email === userEmail);
-        setCartCount(user?.cart.length || 0);
+        dispatch(setCartCount(user?.cart.length || 0));
       })
-      .catch(() => setCartCount(0));
-  }, [userEmail]);
+      .catch(() => dispatch(setCartCount(0)));
+  }, [userEmail, dispatch]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -35,7 +38,7 @@ function Navbar() {
   return (
     <nav>
       <div onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="myshop">
-        <Link to="/product" style={{textDecoration:'none'}}>🛍️ MyShop</Link>
+        <Link to="/product" style={{ textDecoration: 'none' }}>🛍️ MyShop</Link>
       </div>
 
       <div className="nav-middle">
@@ -57,18 +60,18 @@ function Navbar() {
               <p>Email: {userEmail}</p>
               <p><Link to="/orders">Order History</Link></p>
               <button onClick={() => {
-        localStorage.clear();         
-        setShowProfile(false); 
-        navigate("/sign_in"); }} className="signout-btn">
-        Sign Out
-      </button>
+                localStorage.clear();
+                setShowProfile(false);
+                navigate("/sign_in");
+              }} className="signout-btn">
+                Sign Out
+              </button>
             </div>
           )}
         </div>
 
         <div className="newcard" onClick={() => setIsCartOpen(!isCartOpen)}>
-          🛒 Cart
-          <span>{cartCount}</span>
+          🛒 Cart <span>{cartCount}</span>
         </div>
 
         <div className={`cardpage ${isCartOpen ? 'open' : ''}`}>

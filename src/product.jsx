@@ -5,11 +5,14 @@ import './product.css';
 import Navbar from './navbar';
 import Footer from './footer';
 import DarkVariantExample from './banner';
+import { useDispatch } from 'react-redux';
+import { setCartCount } from './cartslice'; // ✅ fixed path
 
 function Product() {
   const [productData, setProductData] = useState([]);
   const { category, keyword } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios.get('http://localhost:3000/Products')
@@ -48,17 +51,16 @@ function Product() {
 
     axios.get('http://localhost:3000/datas')
       .then((res) => {
-        const users = res.data;
-        const user = users.find(u => u.email === userEmail);
+        const user = res.data.find(u => u.email === userEmail);
 
         if (!user) {
           alert("User not found.");
           return;
         }
 
-        const userCart = user.cart;
-
+        const userCart = user.cart || [];
         const existingItem = userCart.find(item => item.id === product.id);
+
         if (existingItem) {
           alert('Product already in cart.');
           return;
@@ -72,14 +74,11 @@ function Product() {
         axios.put(`http://localhost:3000/datas/${user.id}`, updatedUser)
           .then(() => {
             alert('Product added to cart successfully!');
+            dispatch(setCartCount(updatedUser.cart.length));
           })
-          .catch((err) => {
-            console.error('Error updating user cart:', err);
-          });
+          .catch(err => console.error('Error updating user cart:', err));
       })
-      .catch((err) => {
-        console.error('Error fetching user data:', err);
-      });
+      .catch(err => console.error('Error fetching user data:', err));
   };
 
   const handleSingleBuy = (itemId) => {
@@ -93,20 +92,17 @@ function Product() {
     localStorage.setItem("singleBuyItem", JSON.stringify(selectedItem));
     navigate('/buy');
   };
-// console.log('chech',productData)
-
-
 
   return (
     <>
-      <div className="navbar  w-100">
+      <div className="navbar">
         <Navbar />
       </div>
 
       <div className="banner w-100">
-        <DarkVariantExample/>
+        <DarkVariantExample />
       </div>
-      
+
       <div className="fullproduct">
         {productData.length === 0 ? (
           <p style={{ padding: '20px', fontSize: '18px' }}>No products found.</p>

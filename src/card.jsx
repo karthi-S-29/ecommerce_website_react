@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './card.css';
+import { useDispatch } from 'react-redux';
+import { setCartCount } from './cartslice'; // ✅ Correct path if cartSlice is in src/
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const userEmail = localStorage.getItem("email");
   const userId = localStorage.getItem("userId");
@@ -26,24 +29,27 @@ function Cart() {
             quantity: item.quantity || 1
           }));
           setCartItems(cartWithQuantities);
+          dispatch(setCartCount(cartWithQuantities.length)); // ✅ update Redux
         } else {
           setCartItems([]);
+          dispatch(setCartCount(0));
         }
       })
       .catch(err => {
         console.error("Failed to fetch cart:", err);
         setCartItems([]);
+        dispatch(setCartCount(0));
       })
       .finally(() => setLoading(false));
-  }, [userEmail, userId, navigate]);
+  }, [userEmail, userId, navigate, dispatch]);
 
-  // ✅ SAFELY update only the cart field using PATCH
   const updateBackendCart = (updatedCart) => {
-    axios.patch(`http://localhost:3000/datas/${userId}`, {
-      cart: updatedCart
-    })
-    .then(() => setCartItems(updatedCart))
-    .catch(err => console.error("Failed to update cart:", err));
+    axios.patch(`http://localhost:3000/datas/${userId}`, { cart: updatedCart })
+      .then(() => {
+        setCartItems(updatedCart);
+        dispatch(setCartCount(updatedCart.length)); // ✅ update Redux
+      })
+      .catch(err => console.error("Failed to update cart:", err));
   };
 
   const handleRemove = (itemId) => {
@@ -79,7 +85,7 @@ function Cart() {
   if (cartItems.length === 0) {
     return (
       <div style={{ textAlign: "center", marginTop: "30px" }}>
-        <h2 style={{padding:'10px'}}>Your cart is empty.</h2>
+        <h2 style={{ padding: '10px' }}>Your cart is empty.</h2>
         <button onClick={() => navigate("/product")} className="buy-btn">Shop Now</button>
       </div>
     );
